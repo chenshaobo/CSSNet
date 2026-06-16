@@ -14,7 +14,20 @@ CSSNet introduces a **Causal Saliency Foreground Module (CSFM)** and a **Structu
 - **Structure Refinement Module (SRM)** – adapts DenseCRF post-processing by replacing colour-based potentials with gradient-based ones, improving boundary continuity and spatial consistency
 - **State-of-the-art performance** on FSS-1000 (87.3%/88.7% mIoU for 1-/5-shot) and competitive results on PASCAL-5ⁱ and COCO-20ⁱ
 
+---
+
 ## Installation
+
+### Option 1: Conda (recommended)
+
+```bash
+git clone https://github.com/chenshaobo/CSSNet.git
+cd CSSNet
+conda env create -f environment.yml
+conda activate cssnet
+```
+
+### Option 2: Pip
 
 ```bash
 git clone https://github.com/chenshaobo/CSSNet.git
@@ -22,24 +35,49 @@ cd CSSNet
 
 conda create -n cssnet python=3.9
 conda activate cssnet
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+
+# Install PyTorch (CUDA 11.8)
+pip install torch==2.1.0 torchvision==0.16.0 --index-url https://download.pytorch.org/whl/cu118
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
+---
+
 ## Dataset Preparation
 
+All dataset files are expected under the path specified by `--datapath`. The split files provided under `data/splits/` are already included.
+
 ### PASCAL-5ⁱ
-1. Download [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) devkit
-2. Place it at `data/VOCdevkit/VOC2012/`
-3. The split files are already provided under `data/splits/pascal/`
+1. Download [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) devkit (train/val)
+2. Extract to `data/VOCdevkit/VOC2012/`
+
+```
+data/
+└── VOCdevkit/
+    └── VOC2012/
+        ├── JPEGImages/
+        ├── SegmentationClass/
+        └── ImageSets/
+```
 
 ### COCO-20ⁱ
 1. Download [COCO 2014](https://cocodataset.org/#download) train/val images and annotations
-2. Place at your data path and update `--datapath` accordingly
+2. Extract to your data path
+
+```
+/path/to/coco2014/
+├── train2014/
+├── val2014/
+└── annotations/
+```
 
 ### FSS-1000
 1. Download [FSS-1000](https://github.com/HKUSTCV/FSS-1000)
-2. Place at your data path and update `--datapath` accordingly
+2. Extract to your data path
+
+---
 
 ## Usage
 
@@ -59,9 +97,11 @@ python train.py \
     --max-epoch 50
 ```
 
+Training checkpoints are saved in `logs/` automatically.
+
 ### Testing
 
-To evaluate a trained model:
+To evaluate a trained model with SRM post-processing (default):
 
 ```bash
 python test.py \
@@ -73,7 +113,7 @@ python test.py \
     --load /path/to/checkpoint.pt
 ```
 
-To test **without** SRM post-processing (for SRM ablation):
+To test **without** SRM (for SRM ablation):
 
 ```bash
 python test.py \
@@ -86,30 +126,40 @@ python test.py \
     --no-srm
 ```
 
+---
+
 ## Pretrained Models
+
+We provide pretrained CSSNet checkpoints for all benchmarks. Download the weights and place them under a `checkpoints/` directory.
 
 | Model | Backbone | Benchmark | Fold | Setting | mIoU | FB-IoU | Download |
 |-------|----------|-----------|------|---------|------|--------|----------|
-| CSSNet | ResNet-50 | PASCAL-5⁰ | 0 | 1-shot | 69.69 | 83.63 | [Link]() |
-| CSSNet | ResNet-50 | PASCAL-5⁰ | 0 | 5-shot | 74.00 | 86.21 | [Link]() |
-| CSSNet | ResNet-50 | COCO-20⁰ | 0 | 1-shot | 39.02 | 67.12 | [Link]() |
-| CSSNet | ResNet-50 | FSS-1000 | - | 1-shot | 87.27 | 91.95 | [Link]() |
+| CSSNet | ResNet-50 | PASCAL-5⁰ | 0 | 1-shot | 69.69 | 83.63 | _coming soon_ |
+| CSSNet | ResNet-50 | PASCAL-5¹ | 1 | 1-shot | 72.65 | 82.23 | _coming soon_ |
+| CSSNet | ResNet-50 | PASCAL-5² | 2 | 1-shot | 63.12 | 71.14 | _coming soon_ |
+| CSSNet | ResNet-50 | PASCAL-5³ | 3 | 1-shot | 64.98 | 77.22 | _coming soon_ |
+| CSSNet | ResNet-50 | PASCAL-5⁰ | 0 | 5-shot | 74.00 | 86.21 | _coming soon_ |
+| CSSNet | ResNet-50 | COCO-20⁰ | 0 | 1-shot | 39.02 | 67.12 | _coming soon_ |
+| CSSNet | ResNet-50 | FSS-1000 | — | 1-shot | 87.27 | 91.95 | _coming soon_ |
 
-> Checkpoints will be uploaded soon. Please check back or open an issue if you need them urgently.
+> Checkpoints will be uploaded to the [GitHub Releases](https://github.com/chenshaobo/CSSNet/releases) page. Please check there or open an issue if you need them urgently.
+
+---
 
 ## Results
 
-### Main Results (ResNet-50, 1-shot)
+### Main Results (ResNet-50)
 
-| Benchmark | mIoU |
-|-----------|------|
-| FSS-1000 | **87.27** |
-| PASCAL-5ⁱ (mean) | 68.00 |
-| COCO-20ⁱ (mean) | 43.20 |
+| Benchmark | Setting | mIoU | FB-IoU |
+|-----------|---------|------|--------|
+| FSS-1000 | 1-shot | **87.27** | 91.95 |
+| FSS-1000 | 5-shot | **88.69** | 93.03 |
+| PASCAL-5ⁱ (4-fold mean) | 1-shot | **68.00** | 78.90 |
+| PASCAL-5ⁱ (4-fold mean) | 5-shot | **71.80** | 82.90 |
+| COCO-20ⁱ (4-fold mean) | 1-shot | **43.20** | 70.10 |
+| COCO-20ⁱ (4-fold mean) | 5-shot | **49.33** | 72.30 |
 
-## Ablation
-
-### Component-wise contribution (PASCAL-5⁰, 5-shot, ResNet-50)
+### Ablation: Component-wise contribution (PASCAL-5⁰, 5-shot, ResNet-50)
 
 | Configuration | mIoU |
 |--------------|------|
@@ -121,18 +171,65 @@ python test.py \
 | + Auxiliary heads (full CSFM) | 71.44 |
 | + SRM (full CSSNet) | **71.80** |
 
+---
+
+## Project Structure
+
+```
+CSSNet/
+├── train.py                  # Training script
+├── test.py                   # Testing / evaluation script
+├── requirements.txt          # Pip dependencies
+├── environment.yml           # Conda environment
+├── scripts/
+│   └── download_checkpoints.sh
+├── model/
+│   ├── CSSNet.py             # Main model definition
+│   ├── CSFM.py               # Causal Saliency Foreground Module
+│   ├── learner.py            # Training utilities
+│   └── base/
+│       ├── CRM.py            # Correlation Reconstruction Module
+│       ├── FEM.py            # Feature Enhancement Module
+│       ├── srm.py            # Structure Refinement Module (DenseCRF)
+│       ├── conv4d.py         # 4D convolution utilities
+│       ├── correlation.py    # Correlation layer
+│       └── feature.py        # Feature processing
+├── common/
+│   ├── evaluation.py         # Evaluation metrics
+│   ├── logger.py             # Logging
+│   ├── utils.py              # Helper functions
+│   └── vis.py                # Visualization
+└── data/
+    ├── dataset.py            # Dataset base class
+    ├── pascal.py             # PASCAL-5ⁱ dataset
+    ├── coco.py               # COCO-20ⁱ dataset
+    ├── fss.py                # FSS-1000 dataset
+    └── splits/               # Train/val fold splits
+```
+
+---
+
 ## Citation
 
-If you find this work useful, please cite:
+If you find this work useful for your research, please cite our paper published in **The Visual Computer**:
 
 ```bibtex
 @article{chen2025cssnet,
   title={Causal Saliency-Guided Structural Refinement for Robust Few-Shot Semantic Segmentation},
-  author={Chen, Shaobo and ...},
+  author={Chen, Shaobo and [full author list]},
   journal={The Visual Computer},
-  year={2025}
+  volume={},
+  number={},
+  pages={},
+  year={2025},
+  publisher={Springer},
+  doi={}
 }
 ```
+
+> Please replace `[full author list]` and volume/number/pages/doi with the final publication details once available.
+
+---
 
 ## License
 
