@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Virtual env
+.venv/
+venv/
+ENV/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Data - users must download separately
+data/VOCdevkit/
+
+# Large model checkpoints - host externally
+*.pt
+*.pth
+*.tar
+
+# Generated files
+*.png
+*.pdf
+*.jpg
