@@ -1,6 +1,6 @@
 # CSSNet: Causal Saliency-Guided Structural Refinement for Few-Shot Semantic Segmentation
 
-Official PyTorch implementation of **CSSNet**, accepted by **The Visual Computer**.
+Official PyTorch implementation of **CSSNet**, submitted to **The Visual Computer**.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -211,17 +211,14 @@ CSSNet/
 
 ## Citation
 
-If you find this work useful for your research, please cite our paper published in **The Visual Computer**:
+If you find this work useful for your research, please cite our paper submitted to **The Visual Computer**:
 
 ```bibtex
 @article{chen2025cssnet,
   title={Causal Saliency-Guided Structural Refinement for Robust Few-Shot Semantic Segmentation},
   author={Chen, Shaobo and [full author list]},
-  journal={The Visual Computer},
-  volume={},
-  number={},
-  pages={},
-  year={2025},
+  journal={Submitted to The Visual Computer},
+  year={2025}
   publisher={Springer},
   doi={}
 }
