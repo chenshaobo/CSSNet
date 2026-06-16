@@ -130,11 +130,11 @@ python test.py \
 
 ## Pretrained Models
 
-We provide pretrained CSSNet checkpoints for all benchmarks. Download the weights and place them under a `checkpoints/` directory.
+Pretrained CSSNet checkpoints are available on the [GitHub Releases](https://github.com/chenshaobo/CSSNet/releases) page. Download the weights and place them under a `checkpoints/` directory.
 
 | Model | Backbone | Benchmark | Fold | Setting | mIoU | FB-IoU | Download |
 |-------|----------|-----------|------|---------|------|--------|----------|
-| CSSNet | ResNet-50 | PASCAL-5⁰ | 0 | 1-shot | 69.69 | 83.63 | _coming soon_ |
+| CSSNet | ResNet-50 | PASCAL-5⁰ | 0 | 1-shot | 69.69 | 83.63 | [Download](https://github.com/chenshaobo/CSSNet/releases) |
 | CSSNet | ResNet-50 | PASCAL-5¹ | 1 | 1-shot | 72.65 | 82.23 | _coming soon_ |
 | CSSNet | ResNet-50 | PASCAL-5² | 2 | 1-shot | 63.12 | 71.14 | _coming soon_ |
 | CSSNet | ResNet-50 | PASCAL-5³ | 3 | 1-shot | 64.98 | 77.22 | _coming soon_ |
@@ -142,7 +142,7 @@ We provide pretrained CSSNet checkpoints for all benchmarks. Download the weight
 | CSSNet | ResNet-50 | COCO-20⁰ | 0 | 1-shot | 39.02 | 67.12 | _coming soon_ |
 | CSSNet | ResNet-50 | FSS-1000 | — | 1-shot | 87.27 | 91.95 | _coming soon_ |
 
-> Checkpoints will be uploaded to the [GitHub Releases](https://github.com/chenshaobo/CSSNet/releases) page. Please check there or open an issue if you need them urgently.
+> More checkpoints will be added to [Releases](https://github.com/chenshaobo/CSSNet/releases) as they become available. Open an issue if you need a specific checkpoint.
 
 ---
 
