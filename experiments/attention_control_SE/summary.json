@@ -1,0 +1,39 @@
+{
+  "experiment": "attention_control_SE",
+  "dataset": "PASCAL-5^0",
+  "fold": 0,
+  "shot": 1,
+  "backbone": "resnet50",
+  "switch": "ABL_SALIENCY=se",
+  "params_first_level": {
+    "se_branch": 16384,
+    "learned_saliency_branch": 16449,
+    "relative_diff": "0.4%"
+  },
+  "training": {
+    "epochs": 50,
+    "bsz": 6,
+    "lr": 0.0005,
+    "weight_decay": 0.05,
+    "best_validation_epoch": 41,
+    "best_validation_mIoU": 67.58,
+    "best_validation_FB_IoU": 83.11,
+    "last_epoch_mIoU": 66.44
+  },
+  "test_with_SRM": {
+    "mIoU": 67.68,
+    "FB_IoU": 83.5,
+    "bsz": 8,
+    "nshot": 1
+  },
+  "reference_same_fold_and_setting": {
+    "CSSNet_no_CRF": {
+      "mIoU": 68.93,
+      "FB_IoU": 82.95
+    },
+    "CSSNet_with_SRM": {
+      "mIoU": 69.69,
+      "FB_IoU": 83.63
+    }
+  }
+}
